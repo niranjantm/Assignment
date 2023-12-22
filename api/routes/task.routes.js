@@ -61,7 +61,7 @@ const{status} = req.query
 })
 
 //--------------------------------------------- DELETE TASK ------------------------------------------------------//
-router.delete("/delete/:userID/:taskId",verifyUser,async(req,res,next)=>{
+router.delete("/delete/:userId/:taskId",verifyUser,async(req,res,next)=>{
     const{userId,taskId} = req.params
     if(req.user.id!==userId){
         return next(ErrorHandler(401,"Unauthorised"))
@@ -76,6 +76,7 @@ router.delete("/delete/:userID/:taskId",verifyUser,async(req,res,next)=>{
 //----------------------------------------------EDIT TASK----------------------------------------------------------//
 router.put("/update/:userId/:taskId",verifyUser,async(req,res,next)=>{
     const{userId,taskId} = req.params
+    console.log(taskId)
     let {status} = req.body
     status = status.toLowerCase();
     console.log()
@@ -86,6 +87,11 @@ router.put("/update/:userId/:taskId",verifyUser,async(req,res,next)=>{
         return next(ErrorHandler(400,"Use incomplete or in-progress or completed to describe the status"))
     }
     try{
+        const validTask = await Task.findById(taskId);
+        if(!validTask){
+            return next(ErrorHandler(404,"Task not found"))
+        }
+
         const task = await Task.findByIdAndUpdate(taskId,{status:req.body.status})
         res.status(200).json("Task Updated")
     }catch(error){
