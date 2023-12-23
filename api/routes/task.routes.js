@@ -75,11 +75,11 @@ router.delete("/delete/:userId/:taskId",verifyUser,async(req,res,next)=>{
 })
 //----------------------------------------------EDIT TASK----------------------------------------------------------//
 router.put("/update/:userId/:taskId",verifyUser,async(req,res,next)=>{
+
     const{userId,taskId} = req.params
-    console.log(taskId)
     let {status} = req.body
     status = status.toLowerCase();
-    console.log()
+ 
     if(req.user.id!==userId){
         return next(ErrorHandler(401,"Unauthorised"))
     }

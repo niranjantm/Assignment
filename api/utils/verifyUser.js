@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import ErrorHandler from "./error.js";
 
+// This is a middleware used to authenticate the user by using cookies
+
 export default function verifyUser(req,res,next){
     
     const token = req.cookies.access_token;
