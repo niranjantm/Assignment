@@ -26,7 +26,7 @@ https://documenter.getpostman.com/view/30001255/2s9Ykrbf4q
   - cookie-parser
   - jsonweb-token
 
-### To run the application navgate to /api directory and then use " npm start "
+### To run the application navgate to /Assignment directory and then use " npm start "
 
 
 ## Built with
